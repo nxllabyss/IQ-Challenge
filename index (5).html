@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IQ Test — Dark Green</title>
+  <style>
+    :root{
+      --bg:#062e1f;
+      --panel:#0b3f2d;
+      --muted:#9ccbb2;
+      --accent:#0f8f5f;
+      --accent-2:#17b169;
+      --danger:#e24b4b;
+      --success:#39d98a;
+      --glass: rgba(255,255,255,0.04);
+      --button-text:#072014;
+      --card-radius:14px;
+      --gap:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #043124);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .app{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;
+      padding:24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background: linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:var(--button-text);
+      font-size:18px;
+      box-shadow: 0 6px 18px rgba(12,40,30,0.6);
+    }
+    h1{margin:0;font-size:18px;color:#e6ffef}
+    .nicknameBox{
+      font-size:14px;
+      color:var(--muted);
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .nicknameBox strong{color: #dffcde}
+    .controls{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    /* Panels */
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--card-radius);
+      padding:18px;
+      margin-bottom:16px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .center{display:flex;align-items:center;justify-content:center}
+
+    /* Steps */
+    .stepTitle{
+      color:#cfffdd;
+      font-weight:600;
+      margin-bottom:10px;
+    }
+    .inputRow{display:flex;gap:12px;flex-wrap:wrap}
+
+    input[type="text"]{
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.03);
+      background:var(--glass);
+      color:var(--muted);
+      outline:none;
+      min-width:220px;
+    }
+
+    .btnRow{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      padding:12px 18px;
+      border-radius:12px;
+      cursor:pointer;
+      border:0;
+      font-weight:700;
+      color:var(--button-text);
+      background:linear-gradient(180deg,var(--accent-2),var(--accent));
+      box-shadow: 0 6px 14px rgba(10,40,30,0.45);
+      transition:transform .12s ease, box-shadow .12s ease, filter .12s;
+      min-width:92px;
+      text-align:center;
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow:none;
+      min-width:72px;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn:focus{outline:2px solid rgba(20,160,110,0.14)}
+
+    .optionGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    .option{
+      padding:14px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .12s, box-shadow .12s, filter .12s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      text-align:center;
+      user-select:none;
+    }
+    .option:hover{filter:brightness(1.08); transform:translateY(-3px)}
+    .option.disabled{pointer-events:none; opacity:0.75; transform:none}
+
+    .progressWrap{
+      margin-top:6px;
+      background:rgba(255,255,255,0.03);
+      height:12px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.15);
+    }
+    .progressBar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      transition:width .6s cubic-bezier(.22,.9,.3,1);
+    }
+
+    .metaRow{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .timer{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .timer .timeBox{
+      min-width:72px;
+      padding:8px 10px;
+      border-radius:10px;
+      background:rgba(0,0,0,0.18);
+      color:#e6ffef;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .questionText{
+      font-size:18px;
+      color:#e9ffef;
+      font-weight:600;
+      margin:6px 0 0 0;
+      min-height:56px;
+    }
+
+    .nextBtn{
+      margin-top:12px;
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:12px;
+      background:var(--accent-2);
+      color:var(--button-text);
+      font-weight:800;
+      border:0;
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .12s;
+    }
+    .nextBtn.visible{opacity:1; pointer-events:auto}
+
+    /* Animations for answers */
+    .option.correct{
+      animation: flashGreen .6s ease forwards;
+      border-color: rgba(56,200,150,0.3);
+      box-shadow: 0 8px 30px rgba(50,180,120,0.18);
+      transform:translateY(-4px);
+      background:linear-gradient(180deg, rgba(57,217,138,0.12), rgba(57,217,138,0.04));
+      color:#eafff0;
+    }
+    .option.wrong{
+      animation: shakeRed .6s ease forwards;
+      border-color: rgba(226,75,75,0.2);
+      box-shadow: 0 8px 30px rgba(226,75,75,0.08);
+      background:linear-gradient(180deg, rgba(226,75,75,0.06), rgba(226,75,75,0.02));
+      color:#ffecec;
+    }
+    @keyframes flashGreen{
+      0%{transform:scale(1) translateY(0); box-shadow: none; background:rgba(57,217,138,0.03)}
+      50%{transform:scale(1.03) translateY(-6px)}
+      100%{transform:scale(1) translateY(-4px)}
+    }
+    @keyframes shakeRed{
+      0%{transform:translateX(0)}
+      20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)}
+      60%{transform:translateX(-4px)}
+      80%{transform:translateX(2px)}
+      100%{transform:translateX(0)}
+    }
+
+    /* Timer end shake */
+    .timer.shake{
+      animation: timerShake .6s ease;
+    }
+    @keyframes timerShake{
+      0%{transform:translateX(0)}
+      20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)}
+      60%{transform:translateX(-4px)}
+      80%{transform:translateX(2px)}
+      100%{transform:translateX(0)}
+    }
+
+    /* Result */
+    .resultScore{
+      text-align:center;
+      padding:14px;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .resultScore h2{margin:4px 0 10px 0;color:#eafff0}
+    .bigNum{font-size:36px; font-weight:900; color:var(--accent-2)}
+
+    /* small screens */
+    @media (max-width:640px){
+      .optionGrid{grid-template-columns:1fr; }
+      .brand h1{font-size:16px}
+      .logo{width:48px;height:48px;font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header>
+      <div class="brand">
+        <div class="logo">IQ</div>
+        <div>
+          <h1>Dark Green IQ Test</h1>
+          <div style="font-size:12px;color:var(--muted)">O‘ylash qobiliyatingizni sinab ko‘ring</div>
+        </div>
+      </div>
+      <div class="nicknameBox">
+        <div id="welcomeText">Salom, <strong id="nicknameDisplay">mehmon</strong></div>
+        <button class="btn secondary" id="changeNickBtn" title="Change nickname">O'zgartirish</button>
+      </div>
+    </header>
+
+    <!-- Setup Panel -->
+    <section class="panel" id="setupPanel">
+      <div class="stepTitle">1) Nickname</div>
+      <div class="inputRow">
+        <input id="nickInput" type="text" placeholder="Nickname (masalan: Ali123)" maxlength="24" />
+        <button class="btn" id="saveNickBtn">Saqlash</button>
+      </div>
+      <hr style="opacity:0.04;margin:16px 0">
+
+      <div class="stepTitle">2) Daraja tanlang</div>
+      <div class="btnRow" id="levelButtons">
+        <button class="btn" data-level="easy">Easy</button>
+        <button class="btn" data-level="medium">Medium</button>
+        <button class="btn" data-level="hard">Hard</button>
+      </div>
+
+      <div style="height:6px"></div>
+      <div class="stepTitle">3) Savollar soni</div>
+      <div class="btnRow" id="countButtons">
+        <button class="btn secondary" data-count="10">10</button>
+        <button class="btn secondary" data-count="20">20</button>
+        <button class="btn secondary" data-count="30">30</button>
+      </div>
+
+      <div style="height:6px"></div>
+      <div class="stepTitle">4) Taymer</div>
+      <div class="btnRow" id="timerButtons">
+        <button class="btn secondary" data-timer="0">Taymer yo‘q</button>
+        <button class="btn secondary" data-timer="30">30s</button>
+        <button class="btn secondary" data-timer="60">60s</button>
+      </div>
+
+      <div style="height:12px"></div>
+      <div class="center">
+        <button class="btn" id="startTestBtn" style="min-width:160px">Testni boshlash</button>
+      </div>
+    </section>
+
+    <!-- Test Panel -->
+    <section class="panel" id="testPanel" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:12px;color:var(--muted)">Daraja: <strong id="currentLevel" style="color:#eafff0">-</strong></div>
+          <div style="font-size:12px;color:var(--muted)">Savollar: <strong id="totalCount" style="color:#eafff0">-</strong></div>
+        </div>
+        <div style="min-width:180px">
+          <div class="progressWrap" aria-hidden="true">
+            <div class="progressBar" id="progressBar"></div>
+          </div>
+        </div>
+        <div class="timer" id="timerWrap" aria-live="polite">
+          <div style="font-size:12px;color:var(--muted)">Taymer:</div>
+          <div class="timeBox" id="timerBox">—</div>
+        </div>
+      </div>
+
+      <div style="height:14px"></div>
+      <div class="questionText" id="questionText">Savol yuklanmoqda...</div>
+      <div class="optionGrid" id="optionsGrid"></div>
+
+      <div class="metaRow">
+        <div style="font-size:13px;color:var(--muted)">Savol: <strong id="qIndex">0</strong>/<strong id="qTotal">0</strong></div>
+        <div>
+          <button class="nextBtn" id="nextBtn">Keyingi ➜</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Result Panel -->
+    <section class="panel" id="resultPanel" style="display:none">
+      <div class="resultScore">
+        <h2 id="resultTitle">Natija</h2>
+        <div class="bigNum" id="iqScore">—</div>
+        <div style="margin-top:8px">To‘g‘ri: <strong id="correctCount">0</strong> &nbsp; | &nbsp; Noto‘g‘ri: <strong id="wrongCount">0</strong></div>
+        <div style="margin-top:8px;color:var(--muted)" id="scoreDetails"></div>
+        <div style="margin-top:12px" class="btnRow center">
+          <button class="btn" id="restartBtn">Qayta boshlash</button>
+          <button class="btn secondary" id="toSetupBtn">Sozlamalarga qaytish</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Single-file IQ Test App
+    // DOM created once; we update content and classes only.
+    (function(){
+      // Elements
+      const nickInput = document.getElementById('nickInput');
+      const saveNickBtn = document.getElementById('saveNickBtn');
+      const nicknameDisplay = document.getElementById('nicknameDisplay');
+      const changeNickBtn = document.getElementById('changeNickBtn');
+      const setupPanel = document.getElementById('setupPanel');
+      const testPanel = document.getElementById('testPanel');
+      const resultPanel = document.getElementById('resultPanel');
+      const levelButtons = document.getElementById('levelButtons');
+      const countButtons = document.getElementById('countButtons');
+      const timerButtons = document.getElementById('timerButtons');
+      const startTestBtn = document.getElementById('startTestBtn');
+      const currentLevelEl = document.getElementById('currentLevel');
+      const totalCountEl = document.getElementById('totalCount');
+      const questionText = document.getElementById('questionText');
+      const optionsGrid = document.getElementById('optionsGrid');
+      const qIndexEl = document.getElementById('qIndex');
+      const qTotalEl = document.getElementById('qTotal');
+      const nextBtn = document.getElementById('nextBtn');
+      const progressBar = document.getElementById('progressBar');
+      const timerBox = document.getElementById('timerBox');
+      const timerWrap = document.getElementById('timerWrap');
+      const resultTitle = document.getElementById('resultTitle');
+      const iqScore = document.getElementById('iqScore');
+      const correctCountEl = document.getElementById('correctCount');
+      const wrongCountEl = document.getElementById('wrongCount');
+      const scoreDetails = document.getElementById('scoreDetails');
+      const restartBtn = document.getElementById('restartBtn');
+      const toSetupBtn = document.getElementById('toSetupBtn');
+
+      // State
+      let state = {
+        nickname: localStorage.getItem('iq_nick') || '',
+        level: 'easy',
+        totalQuestions: 10,
+        timerSeconds: 0, // 0 = none
+        questionsPool: { easy: [], medium: [], hard: [] },
+        questions: [],
+        currentIndex: 0,
+        correct: 0,
+        wrong: 0,
+        answered: false,
+        timerId: null,
+        remaining: 0
+      };
+
+      // Initialize nickname UI
+      function applyNicknameUI(){
+        if(state.nickname){
+          nicknameDisplay.textContent = state.nickname;
+          nickInput.value = state.nickname;
+        } else {
+          nicknameDisplay.textContent = 'mehmon';
+        }
+      }
+      applyNicknameUI();
+
+      // Save nickname
+      saveNickBtn.addEventListener('click', ()=>{
+        const v = nickInput.value.trim();
+        if(v){
+          state.nickname = v;
+          localStorage.setItem('iq_nick', v);
+          applyNicknameUI();
+          nickInput.blur();
+        } else {
+          alert('Iltimos, nickname kiriting.');
+        }
+      });
+      changeNickBtn.addEventListener('click', ()=>{
+        state.nickname = '';
+        localStorage.removeItem('iq_nick');
+        nicknameDisplay.textContent = 'mehmon';
+        nickInput.value = '';
+        nickInput.focus();
+      });
+
+      // Level selection
+      levelButtons.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button[data-level]');
+        if(!btn) return;
+        [...levelButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        state.level = btn.dataset.level;
+      });
+
+      // Count selection
+      countButtons.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button[data-count]');
+        if(!btn) return;
+        [...countButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        state.totalQuestions = parseInt(btn.dataset.count,10);
+      });
+
+      // Timer selection
+      timerButtons.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button[data-timer]');
+        if(!btn) return;
+        [...timerButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        state.timerSeconds = parseInt(btn.dataset.timer,10);
+      });
+
+      // Create sample question pools
+      // Each question: { q: "text", options: ["a","b","c","d"], a: indexOfCorrect }
+      // Pools are logical puzzles of varying difficulty.
+      const easyQs = [
+        {q:"2, 4, 6, 8, ?  — keyingisi nima?", options:["9","10","11","12"], a:1},
+        {q:"Olma, olcha, gilos — qaysi biri meva emas?", options:["Olma","Gilos","Olcha","Hech biri"], a:3},
+        {q:"Agar KATTA = 5 harf, MAYDA = 5 harf, KIM = ?", options:["3","4","2","5"], a:0},
+        {q:"1, 1, 2, 3, 5, ? — keyingi son?", options:["7","8","6","5"], a:0},
+        {q:"Hafta kunlari ichida dushanba keyin nima?", options:["Chorshanba","Payshanba","Seshanba","Yakshanba"], a:2},
+        {q:"Agar barcha qushlar qanotga ega bo‘lsa va ba’zi qanotlar qora bo‘lsa, qora qanotli nimalar qanotga ega?", options:["Qushlar","Baliq","Mushuk","Hech biri"], a:0},
+        {q:"Agar sizda 3 olma va 2 olma qo‘shilsa, jami nechta?", options:["5","6","4","3"], a:0},
+        {q:"Agar soat 3:00 da soat g‘ildiragi 90 daraja bo‘lsa, 6:00 da nechiga teng?", options:["180","90","270","360"], a:0},
+        {q:"So‘z: 'KALIT' sinonimi qaysi?", options:["Kalit","Tugma","Qulflash","Açar"], a:3},
+        {q:"Agar ko‘k + sariq = yashil, ko‘k + qizil = qizg‘ish, sariq + qizil = ? ", options:["Qovunniy","Qizil","To‘q sariq","To‘q qizil"], a:0},
+        {q:"Teskari: 'TOP' so‘zi teskari yozilganda nima bo‘ladi?", options:["POT","OPT","PT0","POP"], a:0},
+        {q:"Kvadratning burchaklari jami nechiga teng?", options:["360","180","90","270"], a:0},
+        {q:"Agar A>B va B>C bo‘lsa, unda A va C orasidagi munosabat qanday?", options:["A>C","A<C","A=B","Bilmayman"], a:0},
+        {q:"Qaysi son 2 va 3 ga bo‘linadi?", options:["6","4","9","8"], a:0},
+        {q:"So‘z o‘rni: 'Shamol shamoladi' gapida sinonim nima?", options:["Esdi","Urdi","Yurdi","To‘xtadi"], a:0},
+        {q:"Agar katakda 4 to‘qima joylashgan bo‘lsa, 2 katakda necha to‘qima bo‘ladi?", options:["8","6","4","10"], a:0},
+        {q:"Qutida 5 ta olma, 2 tasi yegan bo‘lsa, nechta sog‘lom?", options:["3","2","4","5"], a:0},
+        {q:"Agar bugun dushanba bo‘lsa, 3 kun keyin kun nima bo‘ladi?", options:["Payshanba","Seshanba","Juma","Chorshanba"], a:0},
+        {q:"1 soat = ? daqiqa", options:["60","100","30","120"], a:0},
+        {q:"Oddiy analogiya: Quyon – tez, Tuyoq – ?", options:["Sekin","Tez","Kuchli","Yaxshi"], a:0},
+        {q:"Agar A=1, B=2 ... Z=26 ga teng bo‘lsa, so‘z 'CAT' ning yig‘indisi nechiga teng?", options:["24","7","30","20"], a:2},
+        {q:"Qaysi shaklda 4 teng tomon bor?", options:["Dumaloq","To‘rtburchak","Uchburchak","Oval"], a:1},
+        {q:"Agar 5*3=15 bo‘lsa, 15/5=?", options:["3","5","10","2"], a:0},
+        {q:"So‘zning sinonimi: 'Tez' bilan qaysi biri yaqin?", options:["Shoshilinch","Sekin","Yomon","Katta"], a:0},
+        {q:"Ranglar: oq + qora = ?", options:["Kulrang","Yashil","Sariq","Qizil"], a:0},
+        {q:"Agar siz 10 ga 0 qo‘shsangiz nima bo‘ladi?", options:["10","100","0","1"], a:0},
+        {q:"1, 3, 5, 7, ? — ketma-ketlik", options:["9","8","10","7"], a:0},
+        {q:"4/2 * 3 = ?", options:["6","3","2","8"], a:0},
+        {q:"Qanday raqam 1 va 10 orasida va 5 ga teng emas?", options:["6","5","1","10"], a:0}
+      ];
+
+      const mediumQs = [
+        {q:"Agar 'ABC' kod bilan 123 bo‘lsa va 'BCA' kod bilan 231 bo‘lsa, 'CAB' kod nima bo‘ladi?", options:["312","321","213","132"], a:0},
+        {q:"Ketma-ketlik: 2, 6, 12, 20, ? — keyingi nima?", options:["30","28","26","24"], a:1},
+        {q:"Soat 90 da'qiqa oʻtgandan keyin soat nechiga toʻgʻri keladi? (soat 12 tizimi)", options:["1:30","2:30","1:00","3:00"], a:0},
+        {q:"3 qutida har birida 4 ta olma bor. 2 ta quti olib tashlansa, nechta olma qoladi?", options:["20","12","8","4"], a:1},
+        {q:"Agar KOD so‘zining har bir harfi 2 ga ko‘paytirilsa, oxirgi natija qanday bo‘ladi? (A=1...)", options:["40","36","30","33"], a:0},
+        {q:"Biror narsa 3 marta kamaytirilib, 8 bo‘lib ketdi. Boshlang‘ich nima edi?", options:["64","24","32","16"], a:2},
+        {q:"Juft sonlar orasidagi farq eng kichigi nima?", options:["2","1","3","0"], a:0},
+        {q:"Agar 7 = T, 9 = S bo‘lsa, 79 qanday kombinatsiya bo‘lishi mumkin (mantiqiy)?", options:["TS","ST","TT","SS"], a:0},
+        {q:"Uch son yig‘indisi 60, birinchi 20, ikkinchi 15 bo‘lsa, uchinchisi?", options:["25","30","35","20"], a:0},
+        {q:"Birinchi so‘z 'KITOB', ikkinchi 'BOTIK'. Qanday o‘zgarish mavjud?", options:["Harflar aylanishi","Sinonim","Teskari tartib","Qo‘shimcha"], a:2},
+        {q:"Satr: 5, 9, 17, 33, ? — qanday qoida?", options:["Ikki barobar + -1","+4, +8, +16","+3, +5, +7","+2, +4, +8"], a:1},
+        {q:"Agarda A⟂B va B⟂C bo‘lsa, A bilan C orasidagi o‘tkazma qanday bo‘ladi?", options:["Parallel emas","Parallel","Teng","Noma’lum"], a:0},
+        {q:"Agar katta son toq bo‘lsa va kichik son juft bo‘lsa, yig‘indisi qanday bo‘ladi?", options:["Toq","Juft","Hech biri","Noma’lum"], a:0},
+        {q:"Raqamlar o‘rni: 1=one, 2=two... so‘z 'four' nechanchi raqam?", options:["4","5","3","2"], a:0},
+        {q:"3, 5, 11, 21, ? — ketma-ketlik", options:["43","42","40","33"], a:0},
+        {q:"O‘ylab toping: 72 ni 8 ga bo‘lib, 4 ga ko‘paytiring. Natija?", options:["36","18","54","24"], a:0},
+        {q:"Agar x=2 bo‘lsa va ifoda 3x^2 - x = ?", options:["10","8","12","9"], a:0},
+        {q:"Matematik analogiya: 8:4 :: 6:?", options:["3","2","4","1"], a:0},
+        {q:"So‘z o‘yin: 'SILK' va 'MILK' orasidagi farq nima?", options:["Birinchi harf o‘zgaradi","Oxiri o‘xshash","Hech qanday","Kelishik"], a:0},
+        {q:"Bir qator: 1,4,9,16,... keyingi nima (katta oson)", options:["25","20","30","24"], a:0},
+        {q:"Qutidagi 10 ta tangadan 1 so‘m 5 tadan ko‘p bo‘lsa, qaysi to‘plam?", options:["2 ta 5 so‘m","5 ta 1 so‘m","Hech biri","1 ta 10 so‘m"], a:0},
+        {q:"Ikki raqamni almashtirish orqali 12 ni 21 ga aylantirish mumkin, bu qanday tipik operatsiya?", options:["Invert","Reverse","Rotate","Swap"], a:1},
+        {q:"Agar 4^2 = 16 bo‘lsa, 4^3 = ?", options:["64","32","16","48"], a:0},
+        {q:"Qaysi shaklga 3 burchak to‘g‘ri keladi?", options:["Triangular","Circle","Square","Rectangle"], a:0},
+        {q:"Sinfda 30 o‘quvchi, 2/3 qismi qizlar. Qizlar soni?", options:["20","10","15","18"], a:0},
+        {q:"Agar 5y = 45 bo‘lsa, y = ?", options:["9","8","7","10"], a:0},
+        {q:"Ketma-ketlik: 14, 28, 56, ? — keyingi nima?", options:["112","84","72","100"], a:0},
+        {q:"So‘z oʻyin: 'BREAD' ning sinonimi yoki yaqin so‘zi?", options:["NON","TOST","BUTTER","CHAIR"], a:0},
+        {q:"Agar siz 3 narsani 4 ta idishga teng taqsimlasangiz nechta idishda ko‘proq bo‘ladi?", options:["0","1","2","3"], a:0},
+        {q:"Oddiy mantiq: Agar bugun yomg‘ir bo‘lsa, tuproq ho‘l bo‘ladi. Bugun tuproq ho‘l. Nimani taxmin qilasiz?", options:["Ehtimol yomg‘ir bo‘lgan","Quruq","Erta tong","Uzoq masofa"], a:0}
+      ];
+
+      const hardQs = [
+        {q:"Ketma-ketlik: 1, 1, 2, 3, 5, 8, ? — keyingi (Fibonacci) <", options:["13","12","11","10"], a:0},
+        {q:"Bir murakkab mantiq: Agar P→Q va Q→R bo‘lsa, P→R mantiqiymi?", options:["Ha","Yo‘q","Faqat ba’zan","Bilmayman"], a:0},
+        {q:"Agar 5^x = 125, x = ?", options:["3","2","4","5"], a:0},
+        {q:"So‘z: 'ALGORITHM' so‘zidagi harflar soni?", options:["9","8","10","11"], a:0},
+        {q:"Yuqori IQ: 2x + 3 = 11 va x - y = 2 bo‘lsa, x va y ni aniqlang", options:["x=4,y=2","x=3,y=1","x=5,y=3","x=2,y=0"], a:0},
+        {q:"Agar funksiyaning grafigi parabola bo‘lsa va uning tepadan simmetriyasi y=o bo‘lsa, bu qanday xususiyat?", options:["Odd function","Even function","Linear","None"], a:1},
+        {q:"Raqamli ketma-ketlik: 2, 3, 5, 9, 17, ? — qanday qoida?", options:["Oldingi*2 +1","Oldingi+2","Teng farq","Ixtiyoriy"], a:0},
+        {q:"Majburiy mantiq: A va B ifodalar, agar ikkala to‘g‘ri bo‘lsa, A xor B qanday bo‘ladi?", options:["Yolg‘on","To‘g‘ri","Noma’lum","Ikki tomonlama"], a:0},
+        {q:"Murakkab analogiya: Katta - kichik :: tez - ?", options:["sekin","tezroq","qisqa","uzoq"], a:0},
+        {q:"Matematik pushti: 7*6 - 5*4 = ?", options:["22","26","18","14"], a:0},
+        {q:"Agar detektiv misolida A soat 1 da, B soat 2 da va C soat 4 da bo‘lsa, o‘rtacha vaqt?", options:["7/3","2.33","2.5","3"], a:1},
+        {q:"Sonlar: 4, 6, 9, 6, ? — mantiqni toping", options:["4","3","12","9"], a:2},
+        {q:"Agar 3x−y=10 va 2x+2y=8 bo‘lsa, x= ? y= ?", options:["x=4,y=-2","x=3,y=1","x=2,y=2","x=5,y=-5"], a:0},
+        {q:"Murakkab ketma-ketlik: a_n = a_{n-1} + 2n, a_1=1, a_3 nima?", options:["7","5","9","10"], a:0},
+        {q:"Agar set A={1,2,3,4} va B={2,4}, A\B = ?", options:["{1,3}","{2,4}","{1,2,3}","{}"], a:0},
+        {q:"Rasmiy mantiq: Agar hamma S hayvon bo‘lsa va ba’zi hayvonlar qanotliligini, S qanotli emasmi?", options:["Ba’zi mumkin","Hechqisi","Hammasi","Noma’lum"], a:0},
+        {q:"Diskret matematika: Binary 1011 ni onlikka aylantirish", options:["11","13","9","10"], a:0},
+        {q:"Algebraik: (x+2)(x-3)=x^2-?x-6, ? qancha?", options:["1","-1","5","-5"], a:2},
+        {q:"Murakkab mantiq: 17, 13, 11, 7, ? — keyingi son", options:["5","3","9","1"], a:0},
+        {q:"Abstract: Agar a>b>0 bo‘lsa, sqrt(a)-sqrt(b) ning belgisi?", options:["Ijobiy","Manfiy","Nol","Noma’lum"], a:0},
+        {q:"Matematik topishmoq: 2^5 * 2^3 = ?", options:["256","64","32","128"], a:3},
+        {q:"So‘zlik: 'EQUIVALENT' ning sinonimi qaysi?", options:["Teng","Boshqacha","Kichik","Yangi"], a:0},
+        {q:"IQ qiyin: Agar foiz 20% bo‘lsa, 150 ning 20%i?", options:["30","20","25","35"], a:0},
+        {q:"Topshiriq: agar f(x)=2x+1 bo‘lsa, f(f(2)) = ?", options:["11","10","9","12"], a:0},
+        {q:"Kompozitsiya: 'MANTIQ' so‘zidan harf almashganda nima hosil bo‘ladi? (mantiqiy)", options:["Turli so‘zlar paydo bo‘ladi","Hech nima","Xuddi o‘zi","Teng so‘z"], a:0},
+        {q:"Geometriya: Uchburchak ichki burchaklari yig‘indisi nechiga teng?", options:["180°","360°","90°","270°"], a:0},
+        {q:"Trigonometriya boshlang‘ich: sin(90°) = ?", options:["1","0","0.5","-1"], a:0},
+        {q:"Murakkab arifmetik: 81 ning kvadrat ildizi nima?", options:["9","8","7","6"], a:0},
+        {q:"Masalaning abstrakti: agar x^2 = 49, x nima bo‘lishi mumkin?", options:["±7","7","-7","0"], a:0},
+        {q:"Advanced ketma-ketlik: 2, 5, 10, 17, ? — qoida n^2+1", options:["26","22","21","24"], a:0}
+      ];
+
+      // Assign to state
+      state.questionsPool.easy = easyQs.slice();
+      state.questionsPool.medium = mediumQs.slice();
+      state.questionsPool.hard = hardQs.slice();
+
+      // Utility: shuffle
+      function shuffle(arr){
+        const a = arr.slice();
+        for(let i=a.length-1;i>0;i--){
+          const j = Math.floor(Math.random()*(i+1));
+          [a[i],a[j]]=[a[j],a[i]];
+        }
+        return a;
+      }
+
+      // Start test
+      startTestBtn.addEventListener('click', ()=>{
+        if(!state.nickname){
+          const name = nickInput.value.trim();
+          if(!name){
+            alert('Iltimos, nickname kiriting (yuqorida).');
+            nickInput.focus();
+            return;
+          }
+          state.nickname = name;
+          localStorage.setItem('iq_nick', name);
+          applyNicknameUI();
+        }
+
+        // Prepare questions based on level; ensure enough questions
+        const pool = state.questionsPool[state.level] || [];
+        if(pool.length < state.totalQuestions){
+          alert('Tanlangan daraja uchun yetarli savol mavjud emas. Iltimos, boshqa sonni tanlang.');
+          return;
+        }
+        // Shuffle and pick
+        state.questions = shuffle(pool).slice(0, state.totalQuestions);
+        state.currentIndex = 0;
+        state.correct = 0;
+        state.wrong = 0;
+        state.answered = false;
+
+        // UI updates
+        setupPanel.style.display = 'none';
+        resultPanel.style.display = 'none';
+        testPanel.style.display = 'block';
+        currentLevelEl.textContent = capitalize(state.level);
+        totalCountEl.textContent = state.totalQuestions;
+        qTotalEl.textContent = state.totalQuestions;
+        qIndexEl.textContent = 1;
+        updateProgress();
+        renderQuestion();
+      });
+
+      function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1) }
+
+      // Render current question (update DOM only)
+      function renderQuestion(){
+        clearTimer();
+        state.answered = false;
+        nextBtn.classList.remove('visible');
+        const idx = state.currentIndex;
+        const item = state.questions[idx];
+        questionText.textContent = item.q;
+        // Build option buttons if not exist or reuse elements
+        optionsGrid.innerHTML = '';
+        item.options.forEach((opt,i)=>{
+          const b = document.createElement('button');
+          b.className = 'option';
+          b.type = 'button';
+          b.dataset.index = i;
+          b.textContent = opt;
+          b.addEventListener('click', onAnswerClick);
+          optionsGrid.appendChild(b);
+        });
+        qIndexEl.textContent = idx+1;
+
+        // Timer
+        if(state.timerSeconds>0){
+          startTimer(state.timerSeconds);
+        } else {
+          timerBox.textContent = '—';
+        }
+        // ensure Next hidden
+        nextBtn.classList.remove('visible');
+        progressBar.style.width = ((state.currentIndex)/state.totalQuestions*100) + '%';
+      }
+
+      // Answer click handler
+      function onAnswerClick(e){
+        if(state.answered) return;
+        const btn = e.currentTarget;
+        const chosen = parseInt(btn.dataset.index,10);
+        const q = state.questions[state.currentIndex];
+        state.answered = true;
+        clearTimer();
+
+        // Disable all options
+        [...optionsGrid.children].forEach(ob=>{
+          ob.classList.add('disabled');
+          ob.setAttribute('aria-disabled','true');
+        });
+
+        // Correct?
+        if(chosen === q.a){
+          state.correct++;
+          btn.classList.add('correct');
+        } else {
+          state.wrong++;
+          btn.classList.add('wrong');
+          // highlight correct option
+          const correctBtn = [...optionsGrid.children].find(o=>parseInt(o.dataset.index,10)===q.a);
+          if(correctBtn) correctBtn.classList.add('correct');
+        }
+
+        // Wait 0.8s then show Next button
+        setTimeout(()=>{
+          nextBtn.classList.add('visible');
+        }, 800);
+      }
+
+      // Next question
+      nextBtn.addEventListener('click', ()=>{
+        if(!state.answered){
+          // treat as skipped or pressing next without answering -> count as wrong
+          state.wrong++;
+        }
+        state.currentIndex++;
+        updateProgress();
+        if(state.currentIndex >= state.totalQuestions){
+          // show result
+          showResult();
+        } else {
+          renderQuestion();
+        }
+      });
+
+      // Progress update
+      function updateProgress(){
+        progressBar.style.width = ((state.currentIndex)/state.totalQuestions*100) + '%';
+      }
+
+      // Timer functions
+      function startTimer(seconds){
+        state.remaining = seconds;
+        timerBox.textContent = formatTime(state.remaining);
+        timerWrap.classList.remove('shake');
+        state.timerId = setInterval(()=>{
+          state.remaining--;
+          if(state.remaining <= 0){
+            clearTimer();
+            timerBox.textContent = '0s';
+            // Visual signal
+            timerWrap.classList.add('shake');
+            // Auto-show Next (and disable options) — count as wrong and highlight correct
+            if(!state.answered){
+              state.answered = true;
+              state.wrong++;
+              [...optionsGrid.children].forEach(ob=>{
+                ob.classList.add('disabled');
+                ob.setAttribute('aria-disabled','true');
+                if(parseInt(ob.dataset.index,10)===state.questions[state.currentIndex].a){
+                  ob.classList.add('correct');
+                }
+              });
+              // show next button (no delay)
+              setTimeout(()=> nextBtn.classList.add('visible'), 300);
+            }
+            return;
+          }
+          timerBox.textContent = formatTime(state.remaining);
+        },1000);
+      }
+      function clearTimer(){
+        if(state.timerId){
+          clearInterval(state.timerId);
+          state.timerId = null;
+        }
+        timerWrap.classList.remove('shake');
+      }
+      function formatTime(s){
+        return s + 's';
+      }
+
+      // Show result
+      function showResult(){
+        clearTimer();
+        testPanel.style.display = 'none';
+        resultPanel.style.display = 'block';
+        resultTitle.textContent = `Rahmat, ${state.nickname || 'Mehmon'}!`;
+        correctCountEl.textContent = state.correct;
+        wrongCountEl.textContent = state.wrong;
+
+        // Compute IQ estimate by difficulty
+        const ratio = state.correct / state.totalQuestions;
+        let estimated = 100;
+        if(state.level === 'easy'){
+          estimated = Math.round(100 + ratio * 50); // 100-150
+        } else if(state.level === 'medium'){
+          estimated = Math.round(200 + ratio * 100); // 200-300
+        } else {
+          estimated = Math.round(300 + ratio * 150); // 300-450
+        }
+        iqScore.textContent = estimated;
+        scoreDetails.textContent = `Daraja: ${capitalize(state.level)} • To‘g‘ri: ${state.correct}/${state.totalQuestions} • Taymer: ${state.timerSeconds>0?state.timerSeconds+'s':'yo‘q'}`;
+      }
+
+      // Restart: keeps nickname but reset settings
+      restartBtn.addEventListener('click', ()=>{
+        resultPanel.style.display = 'none';
+        setupPanel.style.display = 'block';
+        testPanel.style.display = 'none';
+        // reset selection visuals
+        [...levelButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        [...countButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        [...timerButtons.querySelectorAll('button')].forEach(b=>b.classList.remove('active'));
+        // default to current state
+        const levelBtn = levelButtons.querySelector(`button[data-level="${state.level}"]`);
+        if(levelBtn) levelBtn.classList.add('active');
+        const countBtn = countButtons.querySelector(`button[data-count="${state.totalQuestions}"]`);
+        if(countBtn) countBtn.classList.add('active');
+        const tBtn = timerButtons.querySelector(`button[data-timer="${state.timerSeconds}"]`);
+        if(tBtn) tBtn.classList.add('active');
+      });
+      toSetupBtn.addEventListener('click', ()=>{
+        // go back to setup to change options (preserve nickname)
+        resultPanel.style.display = 'none';
+        setupPanel.style.display = 'block';
+      });
+
+      // Ensure initial step active defaults
+      // mark defaults in UI
+      const defaultLevelBtn = levelButtons.querySelector(`button[data-level="${state.level}"]`);
+      if(defaultLevelBtn) defaultLevelBtn.classList.add('active');
+      const defaultCountBtn = countButtons.querySelector(`button[data-count="${state.totalQuestions}"]`);
+      if(defaultCountBtn) defaultCountBtn.classList.add('active');
+      const defaultTimerBtn = timerButtons.querySelector(`button[data-timer="${state.timerSeconds}"]`);
+      if(defaultTimerBtn) defaultTimerBtn.classList.add('active');
+
+      // Accessibility: keyboard next on Enter for nickname
+      nickInput.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter') saveNickBtn.click();
+      });
+
+      // Mobile friendly: make buttons larger tap targets by CSS already
+
+      // Prevent double creation / ensure only one DOM tree used — we always update text/content
+      // Questions uniqueness: we slice shuffled pool to ensure no repeats.
+
+      // Done.
+    })();
+  </script>
+</body>
+</html>
